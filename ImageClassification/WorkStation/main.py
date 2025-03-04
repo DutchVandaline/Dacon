@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.optim import AdamW
 from torchvision import transforms, datasets
-from torchvision.models.vision_transformer import vit_h_14
+from torchvision.models.vision_transformer import vit_l_32
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 import os
@@ -35,14 +35,14 @@ print("Dataloader Process Completed")
 class_names = train_dataset.classes
 num_classes = len(class_names)
 
-model = vit_h_14(pretrained=False)
+model = vit_l_32(pretrained= True)
 model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
 model.to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=0.1)
 
-num_epochs = 20
+num_epochs = 50
 accumulation_steps = 4
 
 for epoch in tqdm(range(num_epochs)):

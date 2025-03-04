@@ -2,7 +2,7 @@ import os
 import torch
 import torch.nn as nn
 from torchvision import transforms
-from torchvision.models.vision_transformer import vit_b_16
+from torchvision.models.vision_transformer import vit_l_32
 from PIL import Image
 import pandas as pd
 
@@ -20,11 +20,11 @@ test_images_dir = r"C:\junha\Git\Dacon\ImageClassification\Dataset\test"
 class_names = ["airplane", "apple", "ball", "bird", "building", "cat", "emoticon", "police_car", "rabbit", "truck"]
 num_classes = len(class_names)
 
-model = vit_b_16(pretrained=True)
+model = vit_l_32(pretrained=True)
 model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
 model.to(device)
 
-model_weights_path = r"C:\junha\Git\Dacon\ImageClassification\CheckPoint\ViT_pretrain_19.pth"
+model_weights_path = r"C:\junha\Git\Dacon\ImageClassification\CheckPoint\ViT_pretrain_20.pth"
 model.load_state_dict(torch.load(model_weights_path, map_location=device))
 model.eval()
 
