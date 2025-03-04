@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.optim import AdamW
 from torchvision import transforms, datasets
-from torchvision.models.vision_transformer import vit_b_16
+from torchvision.models.vision_transformer import vit_h_14
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 import os
@@ -13,7 +13,8 @@ from Train_Step import train_step
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 root_dir = "C:/junha/Git/Dacon/ImageClassification/Dataset"
-submission_csv_path = "submission.csv"
+save_dir = "C:/junha/Git/Dacon/ImageClassification/CheckPoint"
+submission_csv_path = "../submission.csv"
 LEARNING_RATE = 1e-5
 
 transform = transforms.Compose([
@@ -34,15 +35,14 @@ print("Dataloader Process Completed")
 class_names = train_dataset.classes
 num_classes = len(class_names)
 
-model = vit_b_16(pretrained=True)
+model = vit_h_14(pretrained=False)
 model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
 model.to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=0.1)
 
-# 학습 및 검증 루프
-num_epochs = 10
+num_epochs = 20
 accumulation_steps = 4
 
 for epoch in tqdm(range(num_epochs)):
@@ -53,5 +53,9 @@ for epoch in tqdm(range(num_epochs)):
 
     val_loss, val_acc, val_f1 = test_step(model, val_dataloader, loss_fn, device)
     print(f"Val Loss: {val_loss:.4f}, Val Accuracy: {val_acc:.4f}, Val F1 Score: {val_f1:.4f}")
+
+    epoch_model_path = os.path.join(save_dir, f"ViT_pretrain_{epoch + 1}.pth")
+    torch.save(model.state_dict(), epoch_model_path)
+    print(f"Model for epoch {epoch + 1} saved to {epoch_model_path}\n")
 
 print("Training Completed!")
