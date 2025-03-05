@@ -24,7 +24,7 @@ model = vit_l_32(pretrained=True)
 model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
 model.to(device)
 
-model_weights_path = r"C:\junha\Git\Dacon\ImageClassification\CheckPoint\ViT_pretrain_20.pth"
+model_weights_path = r"C:\junha\Git\Dacon\ImageClassification\CheckPoint\ViT_pretrain_40.pth"
 model.load_state_dict(torch.load(model_weights_path, map_location=device))
 model.eval()
 

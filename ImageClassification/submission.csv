@@ -152,7 +152,7 @@ TEST_149,apple
 TEST_150,apple
 TEST_151,police_car
 TEST_152,building
-TEST_153,bird
+TEST_153,rabbit
 TEST_154,rabbit
 TEST_155,truck
 TEST_156,cat
@@ -178,7 +178,7 @@ TEST_175,rabbit
 TEST_176,rabbit
 TEST_177,apple
 TEST_178,emoticon
-TEST_179,building
+TEST_179,police_car
 TEST_180,airplane
 TEST_181,airplane
 TEST_182,truck
@@ -243,7 +243,7 @@ TEST_240,apple
 TEST_241,truck
 TEST_242,building
 TEST_243,ball
-TEST_244,rabbit
+TEST_244,cat
 TEST_245,police_car
 TEST_246,cat
 TEST_247,building
